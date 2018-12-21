@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "http://repo.grails.org/grails/core" }
+    }
+    dependencies {
+        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+    }
+}
+
+ext {
+    isGrailsPlugin = true
+    isBuildSnapshot = projectVersion.toString().endsWith("-SNAPSHOT")
+    commonBuild = 'https://raw.githubusercontent.com/grails/grails-common-build/1549696f8d1a6bce3d84db9c4c1bfde61eddf175'
+}
+
+version projectVersion
+group "org.grails.plugins"
+
+apply plugin: "org.grails.grails-plugin"
+apply from:"${commonBuild}/common-publishing.gradle"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  mavenLocal()
+  maven { url "http://repo.grails.org/grails/core" }
+}
+
+dependencies {
+  provided "org.grails:grails-core"
+  compile "io.micronaut:micronaut-http-client:$micronautVersion"
+}
+findMainClass.enabled=false
